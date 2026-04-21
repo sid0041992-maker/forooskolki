@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Павел Филимонов — Урбанистический гранж</title>
+  
+  <!-- Шрифты -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ========== СБРОС ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    html {
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    /* ========== ПАЛИТРА ========== */
+    :root {
+      --bg-asphalt: #0c0c0c;
+      --bg-broken-glass: rgba(18, 18, 18, 0.55);
+      --glass-border: rgba(90, 90, 90, 0.25);
+      --accent-rust: #8b3108;
+      --accent-gold: #a88c2a;
+      --accent-steel: #4f4f4f;
+      --accent-moss: #4a5a3a;
+      --text-faded: #c4c4c4;
+      --text-dim: #7a7a7a;
+    }
+
+    body {
+      font-family: 'Space Mono', monospace;
+      background-color: var(--bg-asphalt);
+      background-image: 
+        radial-gradient(circle at 30% 40%, #151515 1px, transparent 1px),
+        radial-gradient(circle at 70% 80%, #1a1a1a 1px, transparent 1px);
+      background-size: 60px 60px, 100px 100px;
+      color: var(--text-faded);
+      line-height: 1.6;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+    }
+
+    /* ========== БЛОБЫ ========== */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.25;
+      z-index: 5;
+      pointer-events: none;
+      animation: float 30s infinite ease-in-out alternate;
+      mix-blend-mode: screen;
+    }
+
+    .blob-1 {
+      width: 60vw;
+      height: 60vw;
+      max-width: 800px;
+      max-height: 800px;
+      background: radial-gradient(circle at 30% 30%, var(--accent-rust), #3a1a0a);
+      top: -15%;
+      left: -10%;
+      animation-duration: 28s;
+    }
+
+    .blob-2 {
+      width: 50vw;
+      height: 50vw;
+      max-width: 700px;
+      max-height: 700px;
+      background: radial-gradient(circle at 70% 70%, var(--accent-steel), #1a1a1a);
+      bottom: -10%;
+      right: -5%;
+      animation-duration: 35s;
+      animation-delay: -5s;
+      opacity: 0.2;
+    }
+
+    .blob-3 {
+      width: 40vw;
+      height: 40vw;
+      max-width: 600px;
+      max-height: 600px;
+      background: radial-gradient(circle at 50% 50%, var(--accent-moss), #1a2a0a);
+      top: 40%;
+      right: 10%;
+      animation-duration: 40s;
+      animation-delay: -12s;
+      opacity: 0.15;
+    }
+
+    .blob-4 {
+      width: 45vw;
+      height: 45vw;
+      max-width: 650px;
+      max-height: 650px;
+      background: radial-gradient(circle at 20% 80%, var(--accent-gold), #3a2a0a);
+      bottom: 20%;
+      left: -5%;
+      animation-duration: 32s;
+      animation-delay: -20s;
+      opacity: 0.18;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+      }
+      25% {
+        transform: translate(5%, -8%) scale(1.1) rotate(5deg);
+      }
+      50% {
+        transform: translate(-3%, 10%) scale(0.9) rotate(-3deg);
+      }
+      75% {
+        transform: translate(8%, 5%) scale(1.05) rotate(8deg);
+      }
+      100% {
+        transform: translate(-5%, -5%) scale(1) rotate(-5deg);
+      }
+    }
+
+    /* ========== ГЛОБАЛЬНЫЙ ГРАНЖ-СЛОЙ ========== */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 20;
+      
+      background-image: 
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.015) 0px, rgba(255, 255, 255, 0.015) 0.5px, transparent 0.5px, transparent 20px),
+        repeating-linear-gradient(120deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 50px),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      box-shadow: inset 0 0 200px rgba(0,0,0,0.7);
+      mix-blend-mode: overlay;
+    }
+
+    /* ========== ТИПОГРАФИКА ========== */
+    h1, h2, h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-faded);
+      text-shadow: 2px 2px 0px #000;
+    }
+
+    h2 {
+      font-size: 3rem;
+      margin-bottom: 2rem;
+      display: inline-block;
+      border-bottom: 2px solid var(--accent-rust);
+      padding-bottom: 0.3rem;
+    }
+
+    .handwrite {
+      font-family: 'Nothing You Could Do', cursive;
+      color: var(--accent-steel);
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+
+    /* ========== КОНТЕЙНЕР ========== */
+    .container {
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+      position: relative;
+      z-index: 30;
+      overflow-x: hidden;
+      box-sizing: border-box;
+    }
+
+    /* ========== ХЕДЕР ========== */
+    .hero {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .hero-left h1 {
+      font-size: 6rem;
+      line-height: 0.9;
+      margin-bottom: 1rem;
+    }
+
+    .hero-left .subtitle {
+      font-size: 1.5rem;
+      font-family: 'Bebas Neue', sans-serif;
+      color: var(--accent-gold);
+      letter-spacing: 6px;
+    }
+
+    .hero-right {
+      background: var(--bg-broken-glass);
+      backdrop-filter: blur(8px);
+      padding: 2rem;
+      border-left: 4px solid var(--accent-rust);
+      border-top: 1px solid var(--glass-border);
+      border-right: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+      box-shadow: 10px 10px 20px rgba(0,0,0,0.5), inset 0 0 30px rgba(0,0,0,0.3);
+      transform: rotate(0.5deg);
+    }
+
+    /* ========== КНОПКА ========== */
+    .btn {
+      display: inline-block;
+      background: rgba(30, 30, 30, 0.5);
+      backdrop-filter: blur(5px);
+      border: 1px solid var(--accent-rust);
+      color: var(--text-faded);
+      padding: 0.8rem 2rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 2px;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+      margin-top: 1.5rem;
+      cursor: pointer;
+      box-shadow: 4px 4px 0px #000;
+    }
+
+    .btn:hover {
+      background: var(--accent-rust);
+      color: #e0e0e0;
+      border-color: var(--accent-gold);
+      transform: translate(2px, -2px);
+      box-shadow: 6px 6px 0px #000;
+    }
+
+    /* ========== БЕНТО-СЕТКА ========== */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: minmax(180px, auto);
+      gap: 1.5rem;
+      margin: 4rem 0;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .glass-shard {
+      background: rgba(20, 20, 20, 0.35);
+      backdrop-filter: blur(15px) saturate(150%);
+      -webkit-backdrop-filter: blur(15px) saturate(150%);
+      border: 1px solid var(--glass-border);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-left: 1px solid rgba(255, 255, 255, 0.03);
+      padding: 1.8rem;
+      box-shadow: 
+        8px 8px 15px rgba(0, 0, 0, 0.6),
+        inset 0 0 40px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.02);
+      transition: transform 0.2s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    .glass-shard::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 0.5px, transparent 0.5px, transparent 6px),
+        repeating-linear-gradient(120deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 15px);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .glass-shard:hover {
+      transform: translateY(-5px) rotate(0.3deg);
+      box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.7), inset 0 0 50px rgba(0, 0, 0, 0.5);
+      border-color: var(--accent-rust);
+    }
+
+    .shard-1 {
+      grid-column: span 2;
+      grid-row: span 1;
+      clip-path: polygon(0% 0%, 95% 3%, 98% 95%, 2% 100%, 0% 90%);
+    }
+    
+    .shard-2 {
+      grid-column: span 1;
+      grid-row: span 2;
+      clip-path: polygon(3% 0%, 100% 2%, 97% 98%, 0% 100%, 2% 50%);
+    }
+    
+    .shard-3 {
+      grid-column: span 1;
+      grid-row: span 1;
+      clip-path: polygon(0% 5%, 100% 0%, 95% 95%, 5% 100%);
+    }
+    
+    .shard-4 {
+      grid-column: span 1;
+      grid-row: span 1;
+      clip-path: polygon(2% 0%, 98% 8%, 100% 92%, 0% 100%);
+    }
+    
+    .shard-5 {
+      grid-column: span 2;
+      grid-row: span 1;
+      clip-path: polygon(0% 10%, 100% 0%, 95% 90%, 5% 100%);
+    }
+    
+    .shard-6 {
+      grid-column: span 1;
+      grid-row: span 1;
+      clip-path: polygon(5% 0%, 100% 5%, 95% 95%, 0% 90%);
+    }
+
+    .shard-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: var(--accent-gold);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .shard-text {
+      font-size: 0.9rem;
+      color: var(--text-faded);
+      opacity: 0.9;
+      position: relative;
+      z-index: 10;
+    }
+
+    .shard-list {
+      list-style: none;
+      margin-top: 0.8rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .shard-list li {
+      padding: 0.2rem 0;
+      border-bottom: 1px dotted #444;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .shard-list li::before {
+      content: "◈";
+      color: var(--accent-rust);
+      margin-right: 8px;
+      font-size: 0.7rem;
+      opacity: 0.7;
+    }
+
+    .shard-img {
+      width: 100%;
+      height: 120px;
+      background: linear-gradient(135deg, #2a2a2a 0%, #151515 100%);
+      margin-bottom: 1rem;
+      border: 1px solid #3a3a3a;
+      filter: sepia(0.4) contrast(1.1) brightness(0.6);
+      box-shadow: inset 0 0 30px #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dim);
+      font-family: 'Nothing You Could Do', cursive;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ========== ПОРТФОЛИО ========== */
+    .portfolio-section {
+      margin: 5rem 0;
+    }
+
+    .portfolio-filters {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid var(--accent-steel);
+      color: var(--text-dim);
+      padding: 0.6rem 1.5rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+      backdrop-filter: blur(5px);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--accent-rust);
+      color: var(--text-faded);
+      border-color: var(--accent-gold);
+      transform: translateY(-2px);
+      box-shadow: 4px 4px 0px #000;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      clip-path: polygon(
+        0% 2%, 3% 0%, 8% 3%, 12% 0%, 18% 4%, 22% 1%, 28% 5%, 
+        32% 0%, 38% 3%, 42% 1%, 48% 4%, 52% 0%, 58% 3%, 
+        62% 1%, 68% 5%, 72% 0%, 78% 3%, 82% 1%, 88% 4%, 
+        92% 0%, 96% 3%, 100% 1%, 
+        100% 97%, 96% 100%, 92% 96%, 88% 99%, 82% 95%, 
+        78% 100%, 72% 96%, 68% 98%, 62% 94%, 58% 100%, 
+        52% 97%, 48% 99%, 42% 95%, 38% 100%, 32% 96%, 
+        28% 98%, 22% 94%, 18% 100%, 12% 97%, 8% 99%, 3% 95%, 0% 98%
+      );
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    .portfolio-item:hover {
+      transform: translateY(-8px) rotate(0.5deg);
+      box-shadow: 15px 15px 0px rgba(139, 49, 8, 0.3);
+    }
+
+    .portfolio-img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+      transition: all 0.4s ease;
+      filter: sepia(0.3) contrast(1.2) saturate(0.8) brightness(0.9);
+    }
+
+    .portfolio-item:hover .portfolio-img {
+      filter: sepia(0.1) contrast(1.1) saturate(0.9) brightness(1);
+      transform: scale(1.05);
+    }
+
+    .portfolio-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(15, 15, 15, 0.7);
+      backdrop-filter: blur(8px);
+      padding: 1.2rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      border-top: 1px solid var(--accent-rust);
+    }
+
+    .portfolio-item:hover .portfolio-overlay {
+      transform: translateY(0);
+    }
+
+    .portfolio-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 0.3rem;
+    }
+
+    .portfolio-category {
+      font-family: 'Nothing You Could Do', cursive;
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    .portfolio-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .tag {
+      background: rgba(139, 49, 8, 0.2);
+      border: 1px solid rgba(139, 49, 8, 0.4);
+      padding: 0.2rem 0.8rem;
+      font-size: 0.7rem;
+      font-family: 'Space Mono', monospace;
+      text-transform: uppercase;
+      color: var(--text-faded);
+      letter-spacing: 1px;
+    }
+
+    /* Модальное окно */
+    .portfolio-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .modal-content {
+      max-width: 90%;
+      max-height: 90vh;
+      position: relative;
+    }
+
+    .modal-img {
+      width: 100%;
+      height: auto;
+      max-height: 85vh;
+      object-fit: contain;
+      border: 2px solid var(--accent-steel);
+      box-shadow: 0 0 50px rgba(0,0,0,0.8);
+      filter: sepia(0.2) contrast(1.1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: transparent;
+      border: 1px solid var(--accent-rust);
+      color: var(--text-faded);
+      width: 40px;
+      height: 40px;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .modal-close:hover {
+      background: var(--accent-rust);
+      color: #000;
+    }
+
+    .modal-caption {
+      margin-top: 1rem;
+      text-align: center;
+      font-family: 'Nothing You Could Do', cursive;
+      color: var(--accent-gold);
+      font-size: 1.2rem;
+    }
+
+    /* ========== КОНТАКТЫ ========== */
+    .section-block {
+      background: rgba(15, 15, 15, 0.3);
+      backdrop-filter: blur(5px);
+      padding: 2.5rem;
+      margin: 3rem 0;
+      border: 1px solid #2a2a2a;
+      border-top: 1px solid #3a3a3a;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 10;
+    }
+
+    .contact-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 1rem;
+      background: #151515;
+      border: 1px solid #3a3a3a;
+      border-bottom: 2px solid var(--accent-rust);
+      color: var(--text-faded);
+      font-family: 'Space Mono', monospace;
+      margin-bottom: 1rem;
+      transition: all 0.2s;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+      background: #1c1c1c;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    /* ========== ФУТЕР ========== */
+    .footer {
+      margin-top: 5rem;
+      padding: 2rem 0;
+      text-align: center;
+      border-top: 1px solid #2a2a2a;
+      color: var(--text-dim);
+      position: relative;
+      z-index: 10;
+    }
+
+    /* ========== АНИМАЦИЯ МЕРЦАНИЯ ========== */
+    @keyframes glassFlicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.98; }
+    }
+
+    .glass-shard {
+      animation: glassFlicker 8s infinite ease-in-out;
+    }
+
+    .shard-1 { animation-delay: 0s; }
+    .shard-2 { animation-delay: 1.5s; }
+    .shard-3 { animation-delay: 3s; }
+    .shard-4 { animation-delay: 0.8s; }
+    .shard-5 { animation-delay: 2.2s; }
+    .shard-6 { animation-delay: 3.8s; }
+
+    /* ========== АДАПТИВ ========== */
+    @media (max-width: 900px) {
+      .hero-content { 
+        grid-template-columns: 1fr; 
+      }
+      .hero-left h1 { 
+        font-size: 4rem; 
+      }
+      .bento-grid { 
+        grid-template-columns: 1fr; 
+      }
+      .shard-1, .shard-2, .shard-3, .shard-4, .shard-5, .shard-6 {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+      .contact-row { 
+        grid-template-columns: 1fr; 
+      }
+      .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+      .container {
+        padding: 1rem 1rem 2rem;
+      }
+      h2 {
+        font-size: 2.5rem;
+      }
+    }
+
+    img, video, canvas, svg {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- БЛОБЫ -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="blob blob-4"></div>
+
+  <div class="container">
+    
+    <!-- ХЕДЕР -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-left">
+          <h1>ПАВЕЛ<br>ФИЛИМОНОВ</h1>
+          <div class="subtitle">Урбанистический гранж</div>
+          <div class="handwrite" style="margin-top: 1.5rem; font-size: 1.6rem;">сквозь осколки</div>
+        </div>
+        <div class="hero-right">
+          <p style="margin-bottom: 1rem;">Снимаю на плёнку. Готовлю каждую съёмку до деталей. Никакого глянца — только живая среда, естественность и эмоции.</p>
+          <p class="handwrite">— блобы света сквозь битое стекло —</p>
+          <a href="#" class="btn">Узнать подход</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- БЕНТО-СЕТКА УСЛУГ -->
+    <h2 style="margin-top: 2rem;">// Осколки услуг</h2>
+    <div class="bento-grid">
+      
+      <div class="glass-shard shard-1">
+        <div class="shard-title">Подход</div>
+        <div class="shard-text">
+          Покадровая зарисовка. Плёнка. Минимум ретуши. Царапины и зерно — часть ДНК.
+        </div>
+        <div class="handwrite" style="margin-top: 1rem; font-size: 1rem; position: relative; z-index: 10;">— аутентичность важнее идеала —</div>
+      </div>
+      
+      <div class="glass-shard shard-2">
+        <div class="shard-img">[ ЗАБРОШЕННЫЙ ЦЕХ ]</div>
+        <div class="shard-title">Лукбук</div>
+        <div class="shard-text">Съёмка коллекции в городской среде. 10-15 кадров на плёнку.</div>
+        <div style="margin-top: 1rem; font-size: 1.5rem; color: var(--accent-gold); position: relative; z-index: 10;">45k ₽</div>
+      </div>
+      
+      <div class="glass-shard shard-3">
+        <div class="shard-title">Атмосфера</div>
+        <div class="shard-text">Для кафе, баров, клубов. 8-12 кадров. Дух места без прикрас.</div>
+        <div style="margin-top: 0.8rem; font-size: 1.3rem; color: var(--accent-gold); position: relative; z-index: 10;">35k ₽</div>
+      </div>
+      
+      <div class="glass-shard shard-4">
+        <div class="shard-title">История</div>
+        <div class="shard-text">Фотоистория из 5-7 кадров. Нарратив и эмоции.</div>
+        <div style="margin-top: 0.8rem; font-size: 1.3rem; color: var(--accent-gold); position: relative; z-index: 10;">40k ₽</div>
+      </div>
+      
+      <div class="glass-shard shard-5">
+        <div class="shard-title">Почему со мной</div>
+        <ul class="shard-list" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+          <li>5+ лет опыта</li>
+          <li>Только плёнка</li>
+          <li>Продуманность</li>
+          <li>Гибкость стиля</li>
+          <li>Соблюдение сроков</li>
+          <li>Характер в кадре</li>
+        </ul>
+      </div>
+      
+      <div class="glass-shard shard-6">
+        <div class="shard-title">Связь</div>
+        <div class="shard-text">
+          <div>📧 p.filimonov@grunge</div>
+          <div style="margin-top: 0.5rem;">📞 +7 (XXX) XXX-XX</div>
+          <div style="margin-top: 0.5rem;">📱 @filimonov_grunge</div>
+          <div class="handwrite" style="margin-top: 1rem;">создадим настоящее</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ПОРТФОЛИО -->
+    <section class="portfolio-section">
+      <h2>// Избранные кадры</h2>
+      <p class="handwrite" style="margin-bottom: 1rem;">— плёнка, зерно, город —</p>
+      
+      <div class="portfolio-filters">
+        <button class="filter-btn active" data-filter="all">Все работы</button>
+        <button class="filter-btn" data-filter="street">Уличная съёмка</button>
+        <button class="filter-btn" data-filter="portrait">Портреты</button>
+        <button class="filter-btn" data-filter="architecture">Архитектура</button>
+        <button class="filter-btn" data-filter="b2b">B2B проекты</button>
+      </div>
+      
+      <div class="portfolio-grid">
+        
+        <div class="portfolio-item" data-category="street" onclick="openModal(this)">
+          <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&h=600&fit=crop" alt="Уличная съёмка" class="portfolio-img">
+          <div class="portfolio-overlay">
+            <div class="portfolio-title">Заброшенный цех</div>
+            <div class="portfolio-category">Уличная съёмка / 2023</div>
+            <div class="portfolio-tags">
+              <span class="tag">плёнка</span>
+              <span class="tag">урбан</span>
+              <span class="tag">контраст</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="portrait" onclick="openModal(this)">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&h=600&fit=crop" alt="Портрет" class="portfolio-img">
+          <div class="portfolio-overlay">
+            <div class="portfolio-title">Эмоция в кадре</div>
+            <div class="portfolio-category">Портрет / 2024</div>
+            <div class="portfolio-tags">
+              <span class="tag">портрет</span>
+              <span class="tag">ч/б</span>
+              <span class="tag">35mm</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="architecture" onclick="openModal(this)">
+          <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&h=600&fit=crop" alt="Архитектура" class="portfolio-img">
+          <div class="portfolio-overlay">
+            <div class="portfolio-title">Бетон и стекло</div>
+            <div class="portfolio-category">Архитектура / 2023</div>
+            <div class="portfolio-tags">
+              <span class="tag">брутализм</span>
+              <span class="tag">геометрия</span>
+              <span class="tag">плёнка</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="b2b" onclick="openModal(this)">
+          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=600&fit=crop" alt="B2B проект" class="portfolio-img">
+          <div class="portfolio-overlay">
+            <div class="portfolio-title">Лукбук STREETWEAR</div>
+            <div class="portfolio-category">B2B / 2024</div>
+            <div class="portfolio-tags">
+              <span class="tag">коммерция</span>
+              <span class="tag">лукбук</span>
+              <span class="tag">fashion</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="street" onclick="openModal(this)">
+          <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&h=600&fit=crop" alt="Уличная съёмка" class="portfolio-img">
+          <div class="portfolio-overlay">
+            <div class="portfolio-title">Городские тени</div>
+            <div class="portfolio-category">Уличная съёмка / 2023</div>
+            <div class="portfolio-tags">
+              <span class="tag">тени</span>
+              <span class="tag">графика</span>
+              <span class="tag">ч/б</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="portfolio-item" data-category="portrait" onclick="openModal(this)">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&h=600&fit=crop" alt="Портрет" class="portfolio-img">
+          <div class="portfolio-overlay">
+            <div class="portfolio-title">Характер</div>
+            <div class="portfolio-category">Портрет / 2024</div>
+            <div class="portfolio-tags">
+              <span class="tag">портрет</span>
+              <span class="tag">студия</span>
+              <span class="tag">гранж</span>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- МОДАЛЬНОЕ ОКНО -->
+    <div class="portfolio-modal" id="portfolioModal" onclick="closeModal()">
+      <div class="modal-content" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <img class="modal-img" id="modalImage" src="" alt="">
+        <div class="modal-caption" id="modalCaption"></div>
+      </div>
+    </div>
+
+    <!-- КОНТАКТЫ -->
+    <section>
+      <h2>// Обсудить проект</h2>
+      <div class="section-block">
+        <div class="contact-row">
+          <div>
+            <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">Готовы к визуалу с характером? Напишите.</p>
+            <form>
+              <input type="text" placeholder="Имя / Кто ты?">
+              <input type="email" placeholder="Email для связи">
+              <input type="text" placeholder="Компания / Проект">
+              <textarea placeholder="О чём съёмка? Идея, локация, настроение..."></textarea>
+              <button type="submit" class="btn" style="margin-top: 0;">Отправить</button>
+            </form>
+          </div>
+          <div style="border-left: 1px solid #333; padding-left: 2rem;">
+            <div class="handwrite" style="font-size: 1.8rem; color: var(--accent-gold); margin-bottom: 1rem;">Прямой контакт</div>
+            <p>Email:<br>p.filimonov@grunge.photo</p>
+            <p style="margin-top: 1rem;">Телефон:<br>+7 (XXX) XXX-XX-XX</p>
+            <p style="margin-top: 1rem;">Соцсети:<br>@filimonov_grunge</p>
+            <div class="handwrite" style="margin-top: 2rem; font-size: 1.3rem;">— отвечаю лично —</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ФУТЕР -->
+    <footer class="footer">
+      <div>© Павел Филимонов, 2024</div>
+      <div>Фотограф в стиле урбанистического гранжа</div>
+      <div class="handwrite" style="margin-top: 0.8rem;">блобы. осколки. зерно. бетон.</div>
+      <div style="margin-top: 1rem; font-size: 0.7rem; opacity: 0.5;">*если сайт выглядит разбитым и в разводах — всё работает правильно</div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Форма
+    document.querySelector('form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('[БЛОБЫ ОДОБРЯЮТ] Запрос ушёл. Павел свяжется в ближайшее время.');
+    });
+
+    // Фильтрация портфолио
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const filterValue = btn.dataset.filter;
+        
+        portfolioItems.forEach(item => {
+          if (filterValue === 'all' || item.dataset.category === filterValue) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Модальное окно
+    const modal = document.getElementById('portfolioModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalCaption = document.getElementById('modalCaption');
+
+    function openModal(element) {
+      const img = element.querySelector('.portfolio-img');
+      const title = element.querySelector('.portfolio-title').textContent;
+      const category = element.querySelector('.portfolio-category').textContent;
+      
+      modalImg.src = img.src;
+      modalImg.alt = img.alt;
+      modalCaption.textContent = `${title} — ${category}`;
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.style.display === 'flex') {
+        closeModal();
+      }
+    });
+
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+  </script>
+
+</body>
+</html>
